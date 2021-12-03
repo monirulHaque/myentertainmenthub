@@ -1,4 +1,4 @@
-#MyEntertainmentHub
+# MyEntertainmentHub
 A social cataloging website with 
 a list-like system to organize and score/reviews
 entertainment products 
