@@ -2,12 +2,14 @@ package net.monirul.springboot.controllers;
 
 import net.monirul.springboot.controllers.dto.MovieDto;
 import net.monirul.springboot.models.Movie;
+import net.monirul.springboot.services.MovieService;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
@@ -30,8 +33,14 @@ import java.util.Collections;
 @RequestMapping("/mymovielist")
 public class UserMovieListController {
 
-    @Value("${api.key}")
-    private String apiKey;
+    private final MovieService movieService;
+
+    public UserMovieListController(MovieService movieService) {
+        this.movieService = movieService;
+    }
+
+//    @Value("${api.key}")
+//    private String apiKey;
 
     @GetMapping
     public String showMovieList() {
@@ -39,7 +48,7 @@ public class UserMovieListController {
     }
 
     @RequestMapping("/{movieName}")
-    public String getMovieInfo(@PathVariable("movieName") String movieName, Model model) throws IOException, JSONException, ParseException {
+    public String getMovieInfo(@PathVariable String movieName, Model model) throws IOException, JSONException, ParseException {
 //        RestTemplate restTemplate = new RestTemplate();
 //        HttpHeaders headers = new HttpHeaders();
 ////        headers.setContentType(MediaType.APPLICATION_JSON);
@@ -85,14 +94,17 @@ public class UserMovieListController {
 
         for (int i=0;i<jArray.length();i++){
             JSONObject Data =(JSONObject)(jArray.getJSONObject(i));
-            listData.add(new MovieDto(Data.get("id").toString(),
+            MovieDto movieDto = new MovieDto(Data.get("id").toString(),
                     Data.get("title").toString(),
                     new StringBuilder().append("https://image.tmdb.org/t/p/original").append(Data.get("backdrop_path").toString()).toString(),
                     Data.get("original_language").toString(),
-                    Data.get("overview").toString(),
+                    Data.get("overview").toString().substring(0, Math.min(Data.get("overview").toString().length(), 100)),
                     Data.get("vote_average").toString(),
-                    new SimpleDateFormat("yyyy-MM-dd").parse(Data.get("release_date").toString())
-            ));
+//                    new SimpleDateFormat("yyyy-MM-dd").parse(Data.get("release_date").toString()
+                    Data.get("release_date").toString());
+
+            movieService.save(movieDto);
+            listData.add(movieDto);
         }
 //        JSONObject Data =(JSONObject)(jArray.getJSONObject(0));
 //        model.addAttribute("moviename", Data.get("title"));

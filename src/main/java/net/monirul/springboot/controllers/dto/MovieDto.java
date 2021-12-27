@@ -9,9 +9,9 @@ public class MovieDto {
     private String language;
     private String overview;
     private String tmdbScore;
-    private Date releaseDate;
+    private String releaseDate;
 
-    public MovieDto(String id, String name, String image, String language, String overview, String tmdbScore, Date releaseDate) {
+    public MovieDto(String id, String name, String image, String language, String overview, String tmdbScore, String releaseDate) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -69,11 +69,11 @@ public class MovieDto {
         this.tmdbScore = tmdbScore;
     }
 
-    public Date getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 }
