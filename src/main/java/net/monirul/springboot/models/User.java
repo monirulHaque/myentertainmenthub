@@ -40,8 +40,11 @@ public class User {
 		            name = "user_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(
 				            name = "role_id", referencedColumnName = "id"))
-	
 	private Collection<Role> roles;
+
+//	private Collection<Movie> movies;
+//	private Collection<Game> games;
+//	private Collection<Book> book;
 	
 	public User() {
 		
