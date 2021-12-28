@@ -1,16 +1,14 @@
 package net.monirul.springboot.services;
 
 import net.monirul.springboot.controllers.dto.MovieDto;
-import net.monirul.springboot.controllers.dto.UserRegistrationDto;
 import net.monirul.springboot.models.Movie;
-import net.monirul.springboot.models.Role;
-import net.monirul.springboot.models.User;
-import net.monirul.springboot.repository.MovieRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 public interface MovieService {
     Movie save(MovieDto movieDto);
+    List<Movie> getAllMovies();
+    Movie findMovieById(Long Id) throws Exception;
+    Movie findMovieByApiId(String Id);
 }

@@ -3,7 +3,7 @@ package net.monirul.springboot.controllers.dto;
 import java.util.Date;
 
 public class MovieDto {
-    private String id;
+    private String apiId;
     private String name;
     private String image;
     private String language;
@@ -11,8 +11,8 @@ public class MovieDto {
     private String tmdbScore;
     private String releaseDate;
 
-    public MovieDto(String id, String name, String image, String language, String overview, String tmdbScore, String releaseDate) {
-        this.id = id;
+    public MovieDto(String apiId, String name, String image, String language, String overview, String tmdbScore, String releaseDate) {
+        this.apiId = apiId;
         this.name = name;
         this.image = image;
         this.language = language;
@@ -21,12 +21,12 @@ public class MovieDto {
         this.releaseDate = releaseDate;
     }
 
-    public String getId() {
-        return id;
+    public String getApiId() {
+        return apiId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setApiId(String apiId) {
+        this.apiId = apiId;
     }
 
     public String getName() {

@@ -1,19 +1,10 @@
 package net.monirul.springboot.models;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
 
 @Entity
 @Table(name =  "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -42,7 +33,18 @@ public class User {
 				            name = "role_id", referencedColumnName = "id"))
 	private Collection<Role> roles;
 
-//	private Collection<Movie> movies;
+//	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@JoinTable(
+//			name = "users_movies",
+//			joinColumns = @JoinColumn(
+//					name = "user_id", referencedColumnName = "id"),
+//			inverseJoinColumns = @JoinColumn(
+//					name = "movie_id", referencedColumnName = "id"))
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="um_fid", referencedColumnName = "Id")
+	private List<Movie> movies = new ArrayList<>();
+
 //	private Collection<Game> games;
 //	private Collection<Book> book;
 	
@@ -94,5 +96,10 @@ public class User {
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
 	}
-
+	public List<Movie> getMovies() {
+		return movies;
+	}
+	public void setMovies(List<Movie> movies) {
+		this.movies = movies;
+	}
 }

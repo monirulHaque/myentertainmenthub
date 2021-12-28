@@ -25,7 +25,32 @@
 <br>
 
 <div class="container">
-
+    <!-- successfully added message -->
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Added the movie successfully.</div>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Poster</th>
+            <th scope="col">Name</th>
+            <th scope="col">Release</th>
+            <th scope="col">Score</th>
+            <th scope="col">Button</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="movie: ${movies}">
+            <td th:text="${movie.id}" />
+            <td> <img class="img-thumbnail" style="width:20%" th:src="@{${movie.image}}" /> </td>
+            <td th:text="${movie.name}" />
+            <td th:text="${movie.releaseDate}" />
+            <td th:text="${movie.tmdbScore}" />
+            <td><button type="button" class="btn btn-danger">Delete</button></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Registration and Login App</title>
+    <title>Add Movie</title>
 
     <!--<link rel="stylesheet"-->
     <!--	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"-->
@@ -25,6 +25,43 @@
 <br>
 
 <div class="container">
+    <div class="row">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Movie Name" aria-label="Search" aria-describedby="searchMovie">
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+    <br />
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Poster</th>
+            <th scope="col">Name</th>
+            <th scope="col">Release</th>
+            <th scope="col">Score</th>
+            <th scope="col">Button</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="movie: ${movies}">
+            <td th:text="${movie.apiId}" />
+            <td> <img class="img-thumbnail" style="width:20%" th:src="@{${movie.image}}" /> </td>
+            <td th:text="${movie.name}" />
+            <td th:text="${movie.releaseDate}" />
+            <td th:text="${movie.tmdbScore}" />
+            <td>
+                <form action="#"
+                      th:action="@{/mymovielist/addmovie/add/{movieId}(id=${movie.apiId})}"
+                      method="post">
+                    <button type="submit" class="btn btn-success" th:name="movieId" th:value="${movie.apiId}">ADD</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
 </div>
 </body>

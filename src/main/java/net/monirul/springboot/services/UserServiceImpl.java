@@ -2,8 +2,11 @@ package net.monirul.springboot.services;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import net.monirul.springboot.models.Movie;
 import net.monirul.springboot.models.Role;
 import net.monirul.springboot.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+
+	@Autowired
+	private MovieService movieService;
 	
 	public UserServiceImpl(UserRepository userRepository) {
 		super();
@@ -52,5 +58,26 @@ public class UserServiceImpl implements UserService{
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 	}
-	
+
+	@Override
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
+	}
+
+	@Override
+	public User updateUser(User user) {
+		return userRepository.save(user);
+	}
+
+	@Override
+	public User addMovieList(User user, Movie movie) {
+		user.getMovies().add(movie);
+		return userRepository.save(user);
+	}
+
+	@Override
+	public User getUserByEmail(String email) {
+		User user = userRepository.findByEmail(email);
+		return user;
+	}
 }
