@@ -30,13 +30,14 @@
 </nav>
 
 <br>
-<br>
 
 <div class="container">
     <!-- successfully added message -->
     <div th:if="${param.success}">
-        <div class="alert alert-info">Added the movie successfully.</div>
+        <div class="alert alert-success">Added the movie successfully.</div>
     </div>
+    <!-- Link to adding movie -->
+    <a type="button" class="btn btn-success my-2" href="/mymovielist/addmovie">+ Add New Movie</a>
     <table class="table">
         <thead>
         <tr>
