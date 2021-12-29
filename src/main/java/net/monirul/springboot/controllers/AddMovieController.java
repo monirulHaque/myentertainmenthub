@@ -40,23 +40,24 @@ public class AddMovieController {
 
     @GetMapping
     public String addMovie(Model model) {
-
+        model.addAttribute("movie", new MovieDto());
         model.addAttribute("movies", movieService.getAllMovies());
         return "addmovie";
     }
 
-    @PostMapping("/add/{movieId}")
-    public String addMovie(@RequestParam("movieId") String movieId, Model model) throws Exception {
+    @RequestMapping("/add/{id}")
+    public String addMovieToList(@PathVariable String id, Model model) throws Exception {
+        System.out.println("don't know what's wrong");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Object principal = auth.getPrincipal();
         String username = ((UserDetails)principal).getUsername();
         User user = userService.getUserByEmail(username);
-        userService.addMovieList(user, movieService.findMovieByApiId(movieId));
+        userService.addMovieList(user, movieService.findMovieByApiId(id));
         return "redirect:/mymovielist?success";
     }
 
-    @RequestMapping("/{movieName}")
-    public String getMovieInfo(@PathVariable String movieName, Model model) throws IOException, JSONException, ParseException {
+//    @RequestMapping("/{movieName}")
+//    public String getMovieInfo(@PathVariable String movieName, Model model) throws IOException, JSONException, ParseException {
 //        RestTemplate restTemplate = new RestTemplate();
 //        HttpHeaders headers = new HttpHeaders();
 ////        headers.setContentType(MediaType.APPLICATION_JSON);
@@ -78,6 +79,9 @@ public class AddMovieController {
 //                .addHeader("Content-Type", "application/json")
 //                .build();
 
+    @PostMapping
+    public String getMovieInfo(@ModelAttribute("movie") MovieDto movieDto, Model model) throws IOException, JSONException, ParseException {
+        String movieName = movieDto.getName();
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url("https://api.themoviedb.org/3/search/movie?api_key=52884d23cdfe49146b058fc02d1cf8ff&language=en-US&query=" + movieName + "&page=1&include_adult=false")
@@ -102,7 +106,7 @@ public class AddMovieController {
 
         for (int i=0;i<jArray.length();i++){
             JSONObject Data =(JSONObject)(jArray.getJSONObject(i));
-            MovieDto movieDto = new MovieDto(Data.get("id").toString(),
+            MovieDto movieDto2 = new MovieDto(Data.get("id").toString(),
                     Data.get("title").toString(),
                     new StringBuilder().append("https://image.tmdb.org/t/p/original").append(Data.get("backdrop_path").toString()).toString(),
                     Data.get("original_language").toString(),
@@ -111,8 +115,10 @@ public class AddMovieController {
 //                    new SimpleDateFormat("yyyy-MM-dd").parse(Data.get("release_date").toString()
                     Data.get("release_date").toString());
 
-            movieService.save(movieDto);
-            listData.add(movieDto);
+            if (!movieService.existsMovieByApiId(movieDto2.getApiId())) {
+                movieService.save(movieDto2);
+            }
+            listData.add(movieDto2);
         }
 //        JSONObject Data =(JSONObject)(jArray.getJSONObject(0));
 //        model.addAttribute("moviename", Data.get("title"));
@@ -121,13 +127,4 @@ public class AddMovieController {
         return "addmovie";
     }
 
-//    @PostMapping("/{movieName}/add/{movieId}")
-//    public String searchMovie(@RequestParam("movieId") Long movieId,Model model) throws Exception {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        Object principal = auth.getPrincipal();
-//        String username = ((UserDetails)principal).getUsername();
-//        User user = userService.getUserByEmail(username);
-//        userService.addMovieList(user, movieService.findMovieById(movieId));
-//        return "redirect:/mymovielist?success";
-//    }
 }

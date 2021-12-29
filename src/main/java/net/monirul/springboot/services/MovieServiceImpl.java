@@ -46,4 +46,9 @@ public class MovieServiceImpl implements MovieService {
         return movieRepository.findByApiId(apiId);
     }
 
+    @Override
+    public boolean existsMovieByApiId(String apiId) {
+        return movieRepository.existsByApiId(apiId);
+    }
+
 }

@@ -11,6 +11,13 @@ public class MovieDto {
     private String tmdbScore;
     private String releaseDate;
 
+    public MovieDto() {
+
+    }
+
+    public MovieDto(String name) {
+        this.name = name;
+    }
     public MovieDto(String apiId, String name, String image, String language, String overview, String tmdbScore, String releaseDate) {
         this.apiId = apiId;
         this.name = name;

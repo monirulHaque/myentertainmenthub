@@ -11,4 +11,5 @@ public interface MovieService {
     List<Movie> getAllMovies();
     Movie findMovieById(Long Id) throws Exception;
     Movie findMovieByApiId(String Id);
+    boolean existsMovieByApiId(String apiId);
 }

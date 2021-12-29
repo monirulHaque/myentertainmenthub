@@ -14,25 +14,40 @@
           integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
           crossorigin="anonymous">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
 <body>
 <!-- create navigation bar ( header) -->
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-    <a class="navbar-brand text-light" href="#">My Entertainment Hub</a>
+    <a class="navbar-brand text-light" th:href="@{/dashboard}">My Entertainment Hub</a>
 </nav>
 
 <br>
 <br>
 
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <input type="text" class="form-control" placeholder="Movie Name" aria-label="Search" aria-describedby="searchMovie">
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-primary">Search</button>
-        </div>
-    </div>
+
+<!--    <div class="row">-->
+<!--        <div class="col">-->
+<!--            <input type="text" class="form-control" placeholder="Movie Name" aria-label="Search" aria-describedby="searchMovie">-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--            <button type="button" class="btn btn-primary">Search</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <br />-->
+
+<!--        <div class="col">-->
+<!--            <input type="text" class="form-control" th:value="*{response.query}" />-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--            <a href="#" class="badge badge-primary" th:href="@{/mymovielist/addmovie/{movieName}(movieName=${response.query})}">Primary</a>-->
+<!--        </div>-->
+        <form action="#" class="form" th:action="@{/mymovielist/addmovie/}" th:object="${movie}" method="post">
+            <p><input type="text" class="form-control" placeholder="Movie Name" th:field="*{name}" /> <input type="submit" class="btn btn-primary" value="Submit" /> </p>
+        </form>
+
     <br />
     <table class="table">
         <thead>
@@ -46,18 +61,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="movie: ${movies}">
-            <td th:text="${movie.apiId}" />
-            <td> <img class="img-thumbnail" style="width:20%" th:src="@{${movie.image}}" /> </td>
-            <td th:text="${movie.name}" />
-            <td th:text="${movie.releaseDate}" />
-            <td th:text="${movie.tmdbScore}" />
+        <tr th:each="movie2: ${movies}">
+            <td th:text="${movie2.apiId}" />
+            <td> <img class="img-thumbnail" style="width:20%" th:src="@{${movie2.image}}" /> </td>
+            <td th:text="${movie2.name}" />
+            <td th:text="${movie2.releaseDate}" />
+            <td th:text="${movie2.tmdbScore}" />
             <td>
-                <form action="#"
-                      th:action="@{/mymovielist/addmovie/add/{movieId}(id=${movie.apiId})}"
-                      method="post">
-                    <button type="submit" class="btn btn-success" th:name="movieId" th:value="${movie.apiId}">ADD</button>
-                </form>
+                <a th:href="@{/mymovielist/addmovie/add/{id}(id=${movie2.apiId})}"  class="btn btn-primary" method="post">ADD</a>
             </td>
         </tr>
         </tbody>
