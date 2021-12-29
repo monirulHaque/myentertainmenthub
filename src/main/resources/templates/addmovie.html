@@ -22,7 +22,13 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <a class="navbar-brand text-light" th:href="@{/dashboard}">My Entertainment Hub</a>
 </nav>
-
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="/mymovielist">My Movie List</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Movie</li>
+    </ol>
+</nav>
 <br>
 <br>
 
@@ -44,9 +50,11 @@
 <!--        <div class="col">-->
 <!--            <a href="#" class="badge badge-primary" th:href="@{/mymovielist/addmovie/{movieName}(movieName=${response.query})}">Primary</a>-->
 <!--        </div>-->
-        <form action="#" class="form" th:action="@{/mymovielist/addmovie/}" th:object="${movie}" method="post">
-            <p><input type="text" class="form-control" placeholder="Movie Name" th:field="*{name}" /> <input type="submit" class="btn btn-primary" value="Submit" /> </p>
-        </form>
+
+
+    <form action="#" class="form" th:action="@{/mymovielist/addmovie/}" th:object="${movie}" method="post">
+        <p><input type="text" class="form-control" placeholder="Movie Name" th:field="*{name}" /> <input type="submit" class="btn btn-primary" value="Submit" /> </p>
+    </form>
 
     <br />
     <table class="table">
