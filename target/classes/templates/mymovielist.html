@@ -56,7 +56,7 @@
             <td th:text="${movie.name}" />
             <td th:text="${movie.releaseDate}" />
             <td th:text="${movie.tmdbScore}" />
-            <td><button type="button" class="btn btn-danger">Delete</button></td>
+            <td><a class="btn btn-danger" th:href="@{/mymovielist/delete/{id}(id=${movie.apiId})}" method="post">Delete</a></td>
         </tr>
         </tbody>
     </table>

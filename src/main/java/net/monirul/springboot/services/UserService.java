@@ -14,4 +14,5 @@ public interface UserService extends UserDetailsService{
 	User updateUser(User user);
 	User getUserByEmail(String email);
 	User addMovieList(User user, Movie movie);
+    void deleteMovie(User user, Movie movie);
 }

@@ -76,6 +76,14 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
+	public void deleteMovie(User user, Movie movie) {
+		List<Movie> userMovieList =  user.getMovies();
+		userMovieList.remove(movie);
+		user.setMovies(userMovieList);
+		userRepository.save(user);
+	}
+
+	@Override
 	public User getUserByEmail(String email) {
 		User user = userRepository.findByEmail(email);
 		return user;

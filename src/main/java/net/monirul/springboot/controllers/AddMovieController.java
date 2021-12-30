@@ -47,7 +47,6 @@ public class AddMovieController {
 
     @RequestMapping("/add/{id}")
     public String addMovieToList(@PathVariable String id, Model model) throws Exception {
-        System.out.println("don't know what's wrong");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Object principal = auth.getPrincipal();
         String username = ((UserDetails)principal).getUsername();

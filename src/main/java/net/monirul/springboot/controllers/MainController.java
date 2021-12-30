@@ -2,6 +2,7 @@ package net.monirul.springboot.controllers;
 
 import net.monirul.springboot.models.Movie;
 import net.monirul.springboot.models.User;
+import net.monirul.springboot.services.MovieService;
 import net.monirul.springboot.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -9,9 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +19,9 @@ public class MainController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private MovieService movieService;
 	
 	@GetMapping("/")
 	public String home() {
@@ -78,6 +80,13 @@ public class MainController {
 		model.addAttribute("movies",user.getMovies());
 		return "mymovielist";
 	}
-
-
+	@RequestMapping("/mymovielist/delete/{id}")
+	public String deleteMovie(@PathVariable String id, Model model) throws Exception {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Object principal = auth.getPrincipal();
+		String username = ((UserDetails)principal).getUsername();
+		User user = userService.getUserByEmail(username);
+		userService.deleteMovie(user, movieService.findMovieByApiId(id));
+		return "redirect:/mymovielist?deleted";
+	}
 }
