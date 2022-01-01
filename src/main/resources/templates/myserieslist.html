@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="ISO-8859-1">
-    <title>My Movie List</title>
+    <title>My Series List</title>
 
     <!--<link rel="stylesheet"-->
     <!--	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"-->
@@ -35,8 +35,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-<!--        <li class="breadcrumb-item"><a href="/mymovielist">My Movie List</a></li>-->
-        <li class="breadcrumb-item active" aria-current="page">My Movie List</li>
+        <li class="breadcrumb-item active" aria-current="page">My Series List</li>
     </ol>
 </nav>
 
@@ -45,10 +44,10 @@
 <div class="container">
     <!-- successfully added message -->
     <div th:if="${param.success}">
-        <div class="alert alert-success">Added the movie successfully.</div>
+        <div class="alert alert-success">Added the Series successfully.</div>
     </div>
-    <!-- Link to adding movie -->
-    <a type="button" class="btn btn-success my-2" href="/mymovielist/addmovie">+ Add New Movie</a>
+    <!-- Link to adding series -->
+    <a type="button" class="btn btn-success my-2" href="/myserieslist/addseries">+ Add New Series</a>
     <table class="table">
         <thead>
         <tr>
@@ -61,13 +60,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="movie: ${movies}">
-            <td th:text="${movie.id}" />
-            <td> <img class="img-thumbnail" style="width:20%" th:src="@{${movie.image}}" /> </td>
-            <td th:text="${movie.name}" />
-            <td th:text="${movie.releaseDate}" />
-            <td th:text="${movie.tmdbScore}" />
-            <td><a class="btn btn-danger" th:href="@{/mymovielist/delete/{id}(id=${movie.apiId})}" method="post">Delete</a></td>
+        <tr th:each="series: ${seriesList}">
+            <td th:text="${series.id}" />
+            <td> <img class="img-thumbnail" style="width:20%" th:src="@{${series.image}}" /> </td>
+            <td th:text="${series.name}" />
+            <td th:text="${series.releaseDate}" />
+            <td th:text="${series.tmdbScore}" />
+            <td><a class="btn btn-danger" th:href="@{/myserieslist/delete/{id}(id=${series.apiId})}" method="post">Delete</a></td>
         </tr>
         </tbody>
     </table>

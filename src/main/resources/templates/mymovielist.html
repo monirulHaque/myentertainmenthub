@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Registration and Login App</title>
+    <title>My Movie List</title>
 
     <!--<link rel="stylesheet"-->
     <!--	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"-->
@@ -17,8 +17,19 @@
 </head>
 <body>
 <!-- create navigation bar ( header) -->
-<nav class="navbar navbar-expand-lg navbar-light bg-dark">
-    <a class="navbar-brand text-light" href="#">My Entertainment Hub</a>
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">
+    <a class="navbar-brand text-light" th:href="@{/dashboard}">My Entertainment Hub</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link text-light" th:href="@{/mymovielist}">My movie List</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" th:href="@{/myserieslist}">My series List</a>
+            </li>
+        </ul>
+        <a class="btn btn-danger my-2 my-lg-0" href="/logout">Logout</a>
+    </div>
 </nav>
 
 <nav aria-label="breadcrumb">

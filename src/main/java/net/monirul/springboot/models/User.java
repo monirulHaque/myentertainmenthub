@@ -45,9 +45,13 @@ public class User {
 	@JoinColumn(name="um_fid", referencedColumnName = "Id")
 	private List<Movie> movies = new ArrayList<>();
 
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="us_fid", referencedColumnName = "Id")
+	private List<Series> series = new ArrayList<>();
+
 //	private Collection<Game> games;
 //	private Collection<Book> book;
-	
+
 	public User() {
 		
 	}
@@ -101,5 +105,11 @@ public class User {
 	}
 	public void setMovies(List<Movie> movies) {
 		this.movies = movies;
+	}
+	public List<Series> getSeries() {
+		return series;
+	}
+	public void setSeries(List<Series> series) {
+		this.series = series;
 	}
 }

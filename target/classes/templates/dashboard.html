@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Registration and Login App</title>
+    <title>MyEntertainmentHub</title>
 
     <!--<link rel="stylesheet"-->
     <!--	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"-->
@@ -23,6 +23,9 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <a class="nav-link text-light" th:href="@{/mymovielist}">My movie List</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" th:href="@{/myserieslist}">My series List</a>
             </li>
         </ul>
         <a class="btn btn-danger my-2 my-lg-0" href="/logout">Logout</a>
@@ -100,6 +103,15 @@
                                 <h6 class="mb-0" >Movies Watched</h6>
                             </div>
                             <div class="col-sm-9 text-secondary" th:text="${movieCount}">
+                                Movie Count
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0" >Series Watched</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary" th:text="${seriesCount}">
                                 Movie Count
                             </div>
                         </div>

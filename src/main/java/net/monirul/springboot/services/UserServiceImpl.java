@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import net.monirul.springboot.models.Movie;
 import net.monirul.springboot.models.Role;
+import net.monirul.springboot.models.Series;
 import net.monirul.springboot.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -82,6 +83,21 @@ public class UserServiceImpl implements UserService{
 		user.setMovies(userMovieList);
 		userRepository.save(user);
 	}
+
+	@Override
+	public User addSeriesList(User user, Series series) {
+		user.getSeries().add(series);
+		return userRepository.save(user);
+	}
+
+	@Override
+	public void deleteSeries(User user, Series series) {
+		List<Series> userSeriesList =  user.getSeries();
+		userSeriesList.remove(series);
+		user.setSeries(userSeriesList);
+		userRepository.save(user);
+	}
+
 
 	@Override
 	public User getUserByEmail(String email) {

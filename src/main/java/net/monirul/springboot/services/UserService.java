@@ -1,6 +1,7 @@
 package net.monirul.springboot.services;
 
 import net.monirul.springboot.models.Movie;
+import net.monirul.springboot.models.Series;
 import net.monirul.springboot.models.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -15,4 +16,6 @@ public interface UserService extends UserDetailsService{
 	User getUserByEmail(String email);
 	User addMovieList(User user, Movie movie);
     void deleteMovie(User user, Movie movie);
+	User addSeriesList(User user, Series series);
+	void deleteSeries(User user, Series series);
 }
